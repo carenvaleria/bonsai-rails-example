@@ -1,24 +1,32 @@
-# README
+# Bonsai-Rails-Example App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Getting started with Bonsai Elasticsearch and Ruby on Rails app is incredibly quick and simple to do. [Sign Up](https://bonsai.io/signup) for your free account we'll take it from there!  
 
-Things you may want to cover:
 
-* Ruby version
+* Creating Your First Bonsai Cluster
 
-* System dependencies
+Once you've signed up for your free account on Bonsai, you'll be prompted to create your first Trial cluster.
+Give your cluster a name and pick a region. The name helps you to distinguish between different applications
+and the region is how we manage our infrastructure on Amazon Web Services. Click on the "Create Cluster" button
+and voila, you've created your very first Bonsai cluster!
 
-* Configuration
+img placeholder
 
-* Database creation
+* Connecting Your Rails App to Your Bonsai Cluster
 
-* Database initialization
+Bonsai clusters are created with unique URLs, designed for secure, authenticated access to the Elasticsearch API.
+To avoid security concerns we strongly recommend adding your Bonsai Elasticsearch URL to your environment as a
+variable, you can do so by running:
 
-* How to run the test suite
+```
+export BONSAI_URL="<YOUR BONSAI URL>"
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Add the this gem to your Gemfile
 
-* Deployment instructions
+Run Bundle install
 
-* ...
+* Have Your App Ready to Index Models You'd Like to be Searchable
+
+
+* Test Your App and get Ready to Deploy
