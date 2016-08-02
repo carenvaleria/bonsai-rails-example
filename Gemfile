@@ -48,3 +48,5 @@ gem 'faker'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+
+gem 'rails_12factor', group: :production
