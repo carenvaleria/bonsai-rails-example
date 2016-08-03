@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= link_to_unless_current 'Books', root_path %></h1>
+
+<%= form_tag books_path, method: :get do %>
+  <%= search_field_tag :q, params[:q] %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<% if @duration %>
+  <p><small>Took <%= @duration %> ms</small></p>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Publisher</th>
+      <th>Genre</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= link_to book.title, book %></td>
+        <td><%= link_to book.author,    book.author %></td>
+        <td><%= link_to book.publisher, book.publisher %></td>
+        <td><%= link_to book.genre,     book.genre %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Book', new_book_path %>
