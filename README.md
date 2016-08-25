@@ -20,6 +20,41 @@ In our example app, Bookfaces we'll have a list of books that are searchable via
 You can see the app in action [here](https://agile-anchorage-88938.herokuapp.com/).
 So now that we have our example code (or a Rails project of your own) let's go ahead and get things ready for Bonsai.
 
+## Deploying to Heroku
+
+As with all things related to the development process, deploy early and often. It’s a good idea to double check that you have completed all the steps above. For our example app we used Heroku to deploy. For step by step instructions as to how you can deploy your rails app with Heroku, please consult their excellent documentation:
+
+```
+https://devcenter.heroku.com/articles/getting-started-with-rails4
+```
+
+Once you have deployed to Heroku you can add the Bonsai add-on from the Overview tab.
+
+
+##Inserting Data
+
+Our next step will allow us to add data to the cluster as well as how to do a local database import. Let’s start with populating our local app first. For convenience sake, we will use the Faker gem to help populate db. Here’s  a link to the Faker gem documentation:
+
+```
+https://github.com/stympy/faker
+```
+
+Let’s add the Faker gem to the gemfile:
+
+```
+gem 'faker'
+```
+
+and run our ```bundle install```. Now that we’ve got the Faker gem installed, we can start adding some sample data. Take a look at our ```schema.rb``` and ```seeds.rb``` files in our sample code if you need some guidance in how to structure those files.
+
+Run the following commands to set up your local db, note that in Rails 5 we can now use the rails command instead of rake.
+
+```
+rails db:create
+rails db:migrate
+rails db:seed
+```
+Now run ```rails s```   and check out all the new books for Bookfaces! Now that we know how to populate our local db, let’s proceed on how to connect it to our Bonsai cluster. 
 
 ## Connecting Your Rails App to Your Bonsai Cluster
 
@@ -31,10 +66,12 @@ variable, you can do so by running:
 export BONSAI_URL="<YOUR BONSAI URL>"
 ```
 
-Now let's add the this gem to your Gemfile:
+Now let's add the this gems to your Gemfile:
 
 ```
 gem 'bonsai-elasticsearch-rails'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
 ```
 
 Run ```bundle install``` and we'll move on to the next step.
@@ -64,7 +101,7 @@ to import documents. It will allow you to index searchable records via rake task
 require 'elasticsearch/rails/tasks/import'
 ```
 
-Keep in mind you will need to explicitly create your index before you can put documents there, since Bonsai does not support "lazy" index creation. We've already (or at least should have) done the best way, which is to use the rake task we set up in the prior step. The first time you index your content, you'll want to set the FORCE parameter like so:
+Keep in mind you will need to explicitly create your index before you can put documents there, since Bonsai does not support "lazy" index creation.The best way to create your index is using the rake task we set up in the prior step. The first time you index your content, you'll want to set the FORCE parameter:
 
 ```
 rake environment elasticsearch:import:all FORCE=y
